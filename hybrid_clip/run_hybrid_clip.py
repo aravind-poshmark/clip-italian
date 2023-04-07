@@ -819,7 +819,11 @@ def main():
 
         # save checkpoint after each epoch and push checkpoint to the hub
         if jax.process_index() == 0:
+            
             params = jax.device_get(unreplicate(state.params))
+            print(f"param_type = {type(params)}")
+            print(params)
+            print(f"model_type = {type(model)}")
             model.save_pretrained(
                 training_args.output_dir + f"/{epoch+1}/",
                 params=params,
